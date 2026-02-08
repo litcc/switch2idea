@@ -1,0 +1,20 @@
+{
+  "command.openFile": "Jump to other editor...",
+  "command.openProject": "Open project in other editor...",
+  "command.addEditor": "Add Editor",
+  "command.editEditor": "Edit",
+  "command.deleteEditor": "Delete",
+  "command.openJsonConfig": "Edit JSON Config",
+  "command.refreshEditors": "Refresh",
+  "command.jumpToEditor": "Open current file in this editor",
+  "view.editors.name": "Switch2IDEA",
+  "view.editors.contextualTitle": "Editor List",
+  "config.editors.description": "Configured editor list",
+  "config.editors.items.name.description": "Editor display name",
+  "config.editors.items.type.description": "Editor type",
+  "config.editors.items.path.description": "Executable file path",
+  "config.editors.items.urlScheme.description": "macOS URL scheme (optional)",
+  "config.ideaPath.description": "IDEA executable path (deprecated, use editors config instead)",
+  "config.ideaPath.deprecationMessage": "This config is deprecated, use switch2idea.editors to configure multiple editors",
+  "config.showTreeView.description": "Show editor management panel in Explorer"
+}

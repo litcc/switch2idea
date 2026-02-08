@@ -1,0 +1,20 @@
+{
+  "command.openFile": "跳转至其他编辑器...",
+  "command.openProject": "在其他编辑器中打开项目...",
+  "command.addEditor": "添加编辑器",
+  "command.editEditor": "编辑",
+  "command.deleteEditor": "删除",
+  "command.openJsonConfig": "编辑 JSON 配置",
+  "command.refreshEditors": "刷新",
+  "command.jumpToEditor": "在此编辑器中打开当前文件",
+  "view.editors.name": "Switch2IDEA",
+  "view.editors.contextualTitle": "编辑器列表",
+  "config.editors.description": "配置的编辑器列表",
+  "config.editors.items.name.description": "编辑器显示名称",
+  "config.editors.items.type.description": "编辑器类型",
+  "config.editors.items.path.description": "可执行文件路径",
+  "config.editors.items.urlScheme.description": "macOS URL scheme（可选）",
+  "config.ideaPath.description": "IDEA 可执行路径（已废弃，请使用 editors 配置）",
+  "config.ideaPath.deprecationMessage": "此配置已废弃，请使用 switch2idea.editors 配置多个编辑器",
+  "config.showTreeView.description": "是否在资源管理器中显示编辑器管理面板"
+}
