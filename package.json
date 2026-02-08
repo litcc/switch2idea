@@ -2,7 +2,7 @@
   "name": "switch2idea",
   "displayName": "Switch2IDEA",
   "description": "Quickly switch between VS Code and IntelliJ IDEA, open current file in IDEA with the same position",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "publisher": "qczone",
   "license": "MIT",
   "repository": {
@@ -27,16 +27,57 @@
   "activationEvents": [
     "onStartupFinished"
   ],
+  "l10n": "./l10n",
   "main": "./out/extension.js",
   "contributes": {
+    "views": {
+      "explorer": [
+        {
+          "id": "switch2idea.editors",
+          "name": "%view.editors.name%",
+          "contextualTitle": "%view.editors.contextualTitle%",
+          "when": "switch2idea.showTreeView"
+        }
+      ]
+    },
     "commands": [
       {
         "command": "Switch2IDEA.openFileInIDEA",
-        "title": "Open File in IDEA"
+        "title": "%command.openFile%"
       },
       {
         "command": "Switch2IDEA.openProjectInIDEA",
-        "title": "Open Project in IDEA"
+        "title": "%command.openProject%"
+      },
+      {
+        "command": "switch2idea.addEditor",
+        "title": "%command.addEditor%",
+        "icon": "$(add)"
+      },
+      {
+        "command": "switch2idea.editEditor",
+        "title": "%command.editEditor%",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "switch2idea.deleteEditor",
+        "title": "%command.deleteEditor%",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "switch2idea.openJsonConfig",
+        "title": "%command.openJsonConfig%",
+        "icon": "$(json)"
+      },
+      {
+        "command": "switch2idea.refreshEditors",
+        "title": "%command.refreshEditors%",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "switch2idea.jumpToEditor",
+        "title": "%command.jumpToEditor%",
+        "icon": "$(link-external)"
       }
     ],
     "keybindings": [
@@ -55,10 +96,51 @@
     "configuration": {
       "title": "Switch2IDEA",
       "properties": {
+        "switch2idea.editors": {
+          "type": "array",
+          "default": [],
+          "description": "%config.editors.description%",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "%config.editors.items.name.description%"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "jetbrains",
+                  "custom"
+                ],
+                "description": "%config.editors.items.type.description%"
+              },
+              "path": {
+                "type": "string",
+                "description": "%config.editors.items.path.description%"
+              },
+              "urlScheme": {
+                "type": "string",
+                "description": "%config.editors.items.urlScheme.description%"
+              }
+            },
+            "required": [
+              "name",
+              "type",
+              "path"
+            ]
+          }
+        },
+        "switch2idea.showTreeView": {
+          "type": "boolean",
+          "default": true,
+          "description": "%config.showTreeView.description%"
+        },
         "switch2idea.ideaPath": {
           "type": "string",
           "default": "",
-          "description": "IDEA executable path"
+          "description": "%config.ideaPath.description%",
+          "deprecationMessage": "%config.ideaPath.deprecationMessage%"
         }
       }
     },
@@ -78,6 +160,45 @@
           "command": "Switch2IDEA.openProjectInIDEA",
           "group": "navigation"
         }
+      ],
+      "view/title": [
+        {
+          "command": "switch2idea.addEditor",
+          "when": "view == switch2idea.editors",
+          "group": "navigation@1"
+        },
+        {
+          "command": "switch2idea.openJsonConfig",
+          "when": "view == switch2idea.editors",
+          "group": "navigation@2"
+        },
+        {
+          "command": "switch2idea.refreshEditors",
+          "when": "view == switch2idea.editors",
+          "group": "navigation@3"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "switch2idea.jumpToEditor",
+          "when": "view == switch2idea.editors && viewItem == editorItem",
+          "group": "inline@1"
+        },
+        {
+          "command": "switch2idea.editEditor",
+          "when": "view == switch2idea.editors && viewItem == editorItem",
+          "group": "1_edit@1"
+        },
+        {
+          "command": "switch2idea.deleteEditor",
+          "when": "view == switch2idea.editors && viewItem == editorItem",
+          "group": "1_edit@2"
+        },
+        {
+          "command": "switch2idea.jumpToEditor",
+          "when": "view == switch2idea.editors && viewItem == editorItem",
+          "group": "2_jump@1"
+        }
       ]
     }
   },
@@ -93,15 +214,18 @@
   },
   "packageManager": "pnpm@9.6.0",
   "devDependencies": {
-    "@types/vscode": "^1.93.1",
     "@types/mocha": "^10.0.10",
     "@types/node": "20.x",
+    "@types/vscode": "^1.93.1",
     "@typescript-eslint/eslint-plugin": "^8.17.0",
     "@typescript-eslint/parser": "^8.17.0",
-    "eslint": "^9.16.0",
-    "typescript": "^5.7.2",
-    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-cli": "^0.0.12",
     "@vscode/test-electron": "^2.4.1",
-    "@vscode/vsce": "^3.2.1"
+    "@vscode/vsce": "^3.7.1",
+    "eslint": "^9.18.0",
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "@vscode/l10n": "^0.0.18"
   }
 }

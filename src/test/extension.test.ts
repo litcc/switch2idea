@@ -27,18 +27,23 @@ suite('Switch2IDEA Extension Test Suite', () => {
 		assert.ok(extension.isActive, 'Extension should be activated');
 	});
 
-	test('Should register open in IDEA command', () => {
+	test('Should register openFileInIDEA command', () => {
 		const commands = vscode.commands.getCommands(true);
 		return commands.then((cmds) => {
-			assert.ok(cmds.includes('Switch2IDEA.openInIDEA'));
+			assert.ok(cmds.includes('Switch2IDEA.openFileInIDEA'), 'openFileInIDEA command should be registered');
+		});
+	});
+
+	test('Should register openProjectInIDEA command', () => {
+		const commands = vscode.commands.getCommands(true);
+		return commands.then((cmds) => {
+			assert.ok(cmds.includes('Switch2IDEA.openProjectInIDEA'), 'openProjectInIDEA command should be registered');
 		});
 	});
 
 	test('Should have correct configuration', () => {
 		const config = vscode.workspace.getConfiguration('switch2idea');
-		assert.ok(config.has('ideaPath'));
-		assert.ok(config.has('keyboardShortcut'));
-		assert.strictEqual(config.get('keyboardShortcut'), 'alt+shift+o');
+		assert.ok(config.has('ideaPath'), 'Configuration should have ideaPath setting');
 	});
 
 	test('Should handle file path with spaces and special characters', async () => {
@@ -55,8 +60,8 @@ suite('Switch2IDEA Extension Test Suite', () => {
 			const doc = await vscode.workspace.openTextDocument(testFilePath);
 			const editor = await vscode.window.showTextDocument(doc);
 
-			// Execute command
-			await vscode.commands.executeCommand('Switch2IDEA.openInIDEA');
+			// Execute command - use the correct command name
+			await vscode.commands.executeCommand('Switch2IDEA.openFileInIDEA');
 
 			// Verify command execution completed without errors
 			// Note: We cannot verify if IDEA actually opened the file as it's an external process
@@ -89,8 +94,8 @@ suite('Switch2IDEA Extension Test Suite', () => {
 			const position = new vscode.Position(2, 1);
 			editor.selection = new vscode.Selection(position, position);
 
-			// Execute command
-			await vscode.commands.executeCommand('Switch2IDEA.openInIDEA');
+			// Execute command - use the correct command name
+			await vscode.commands.executeCommand('Switch2IDEA.openFileInIDEA');
 
 			// Verify command execution completed without errors
 			assert.ok(true);
@@ -112,8 +117,8 @@ suite('Switch2IDEA Extension Test Suite', () => {
 		try {
 			await config.update('ideaPath', 'non-existent-path', vscode.ConfigurationTarget.Global);
 			
-			// Execute command
-			await vscode.commands.executeCommand('Switch2IDEA.openInIDEA');
+			// Execute command - use the correct command name
+			await vscode.commands.executeCommand('Switch2IDEA.openFileInIDEA');
 			
 			// Command should complete without crashing
 			assert.ok(true);
